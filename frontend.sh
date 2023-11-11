@@ -3,7 +3,7 @@ echo -e "\e[35m instal Nginx \e[0m"
 dnf install nginx -y &>>/tmp/roboshop.log
 
 echo -e "\e[35m remove Frontend  \e[0m"
-rm -f /usr/share/nginx/html/* 
+rm -rf /usr/share/nginx/html/* 
 stat_check() {
   if [ $1 -eq 0 ]; then
     echo SUCCESS
