@@ -11,7 +11,7 @@ curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.z
 
 
 echo -e "\e[35m Extractin & Copy Frontend  \e[0m"
-rm -f /usr/share/nginx/html
+rm -f /usr/share/nginx/html/*
 cd /usr/share/nginx/html 
 unzip /tmp/frontend.zip 
 
