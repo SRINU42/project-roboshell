@@ -16,7 +16,8 @@ unzip /tmp/frontend.zip &>>/tmp/roboshop.log
 
 
 echo -e "\e[35m Update Frontend Configuration \e[0m" 
-cp  /home/centos/project-roboshell/roboshop.conf /etc/nginx/default.d/roboshop.conf 
+
+cp  roboshop.conf /etc/nginx/default.d/roboshop.conf 
 
 
 echo -e "\e[35m Enable SystemD \e[0m"
