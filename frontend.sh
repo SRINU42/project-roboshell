@@ -12,6 +12,9 @@ echo -e "\e[35m Extractin & Copy Frontend  \e[0m"
 cd /usr/share/nginx/html 
 unzip /tmp/frontend.zip
 
+echo -e "\e[35m Update Frontend Configuration \e[0m"
+cp /home/centos/project-roboshell/roboshop.conf /etc/nginx/default.d/roboshop.conf
+
 echo -e "\e[35m Enable SystemD \e[0m"
 systemctl enable nginx 
 systemctl restart nginx 
