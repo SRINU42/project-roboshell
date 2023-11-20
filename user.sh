@@ -1,6 +1,5 @@
 source common.sh
-component=catalogue
+component= user 
 
 nodejs
-
 mongo_schema_setup
