@@ -14,10 +14,5 @@ systemctl enable mysqld
 systemctl restart mysqld  
 
 echo -e "${color} Setup MYSQL password  ${nocolor}"
-mysql_secure_installation --set-root-pass RoboShop@1
-
-echo -e "${color} set password ${nocolor}"
-mysql -uroot -pRoboShop@1
-
-
+mysql_secure_installation --set-root-pass $1
 
