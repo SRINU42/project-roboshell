@@ -2,18 +2,10 @@ color="\e[33m"
 nocolor="\e[0m"
 log_file="/tmp/roboshop.log"
 app_path="/app"
-
-systemd_setup() {
-
-    echo -e "${color} Setup SystemD ${component} Service ${nocolor}"
-    cp /home/centos/project-roboshell/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
-
-    echo -e "${color} Load the service start the services ${nocolor}"
-    systemctl daemon-reload &>>${log_file}
-    systemctl enable ${component} &>>${log_file}
-    systemctl restart ${component} &>>${log_file}
-
-}
+if [ $user_id -ne 0 ]; then
+  echo Script should be running with sudo
+  exit 1
+fi
 
 stat_check() {
     if [$1 -eq 0]; then
@@ -22,6 +14,19 @@ stat_check() {
         echo FAILUER
         exit 1
     fi
+
+}
+systemd_setup() {
+
+    echo -e "${color} Setup SystemD ${component} Service ${nocolor}"
+    cp /home/centos/project-roboshell/${component}.service /etc/systemd/system/${component}.service &>>${log_file}
+    sed -i -e "s/roboshop_app_password/$roboshop_app_password" /etc/systemd/system/${component}.service &>>${log_file}
+    stat_check $?
+
+    echo -e "${color} Load the service start the services ${nocolor}"
+    systemctl daemon-reload &>>${log_file}
+    systemctl enable ${component} &>>${log_file}
+    systemctl restart ${component} &>>${log_file}
 
 }
 
@@ -88,7 +93,7 @@ mysql_schema_setup() {
     stat_check $?
 
     echo -e "${color} set mysql password ${nocolor}"
-    mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+    mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p${mysql_root_password} < /app/schema/shipping.sql 
     stat_check $?
 
 }
